@@ -25,7 +25,9 @@ def handle_message():
     pass
 
 
-from flask import Flask, request
+from flask import Flask, request, jsonify
+
+from service.notifications import Notifications
 
 app = Flask(__name__)
 handler = SlackRequestHandler(slack_app)
@@ -34,6 +36,13 @@ handler = SlackRequestHandler(slack_app)
 @app.route("/slack/events", methods=["POST"])
 def slack_events():
     return handler.handle(request)
+
+
+@flask_app.route("/send-message", methods=["POST"])
+def send_message():
+    content = request.json
+    print(Notifications().send_message_from_request(content))
+    return jsonify({"result":"OK"})
 
 
 @app.route("/echo", methods=["GET"])
