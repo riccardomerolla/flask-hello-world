@@ -1,4 +1,5 @@
 Flask
+Gunicorn
 slack_sdk>=3.0
 slack_bolt>=1.6.1
 SQLAlchemy
