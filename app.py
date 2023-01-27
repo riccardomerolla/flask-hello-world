@@ -38,7 +38,7 @@ def slack_events():
     return handler.handle(request)
 
 
-@flask_app.route("/send-message", methods=["POST"])
+@app.route("/send-message", methods=["POST"])
 def send_message():
     content = request.json
     print(Notifications().send_message_from_request(content))
