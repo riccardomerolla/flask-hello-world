@@ -4,9 +4,24 @@ logging.basicConfig(level=logging.DEBUG)
 
 from slack_bolt import App
 from slack_bolt.adapter.flask import SlackRequestHandler
+from service.slash_commands import SlashCommands
 
 slack_app = App()
 
+slack_commands = SlashCommands()
+
+
+@slack_app.command("/prezi-video")
+def prezi_video_command(ack, respond, command):
+    logger.info('/prezi-video command hit')
+    ack()
+    respond(slack_commands.get_video_payload())
+
+@slack_app.command("/prezi-present")
+def prezi_present_command(ack, respond, command):
+    logger.info('/prezi-present command hit')
+    ack()
+    respond(slack_commands.get_present_payload())
 
 @slack_app.middleware  # or app.use(log_request)
 def log_request(logger, body, next):
