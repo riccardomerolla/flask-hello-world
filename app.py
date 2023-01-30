@@ -23,6 +23,11 @@ def prezi_present_command(ack, respond, command):
     ack()
     respond(slack_commands.get_present_payload())
 
+@slack_app.event("link_shared")
+def handle_link_shared_events(body, logger):
+    logger.info(body)
+
+
 @slack_app.middleware  # or app.use(log_request)
 def log_request(logger, body, next):
     logger.debug(body)
@@ -56,7 +61,7 @@ def slack_events():
 @app.route("/send-message", methods=["POST"])
 def send_message():
     content = request.json
-    print(Notifications().send_message_from_request(content))
+    logger.info(Notifications().send_message_from_request(content))
     return jsonify({"result":"OK"})
 
 
