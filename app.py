@@ -10,6 +10,8 @@ slack_app = App()
 
 slack_commands = SlashCommands()
 
+logger = logging.getLogger(__name__)
+
 
 @slack_app.command("/prezi-video")
 def prezi_video_command(ack, respond, command):
